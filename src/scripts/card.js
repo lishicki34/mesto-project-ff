@@ -1,5 +1,4 @@
-import { openPopup } from "./modal";
-import { closePopup } from "./modal";
+
 
 // Функция лайк
 export function likeOnCard (likeButton){
@@ -30,34 +29,4 @@ export function createCard(item, deleteCard, likeOnCard, openImage) {
   likeButton.addEventListener('click',() => likeOnCard(likeButton));
 
   return cardElement;
-};
-
-// Функция фуллскрин
-export function openImage(src, alt) {
-  const popupImage = document.querySelector('.popup_type_image');
-  const popupFullScrinIgm = popupImage.querySelector('.popup__image');
-  const popupCaption = popupImage.querySelector('.popup__caption');
-  popupImage.style.backgroundColor = 'rgba(0, 0, 0, .9)';
-
-  popupFullScrinIgm.src = src;
-  popupFullScrinIgm.alt = alt;
-  popupCaption.textContent = popupFullScrinIgm.alt;
-  
-  openPopup(popupImage);
-};
-
-// 2-Функция создания новой карточки
-export function createNewCard(evt, deleteCard, likeOnCard, openImage) {
-  const placesList = document.querySelector('.places__list');
-  const formElementNewCard = document.querySelector('.popup_type_new-card');
-  const namePlaceInput = formElementNewCard.querySelector('.popup__input_type_card-name');
-  const linkPlaceInput = formElementNewCard.querySelector('.popup__input_type_url');
-  evt.preventDefault();
-  const newCardInfo = {
-    name: namePlaceInput.value,
-    link: linkPlaceInput.value
-  };
-
-  placesList.prepend(createCard(newCardInfo, deleteCard, likeOnCard, openImage));
-  closePopup(formElementNewCard);
 };

@@ -1,14 +1,7 @@
 import '../index.css'; 
 import { initialCards } from "./cards.js";
-import { createCard } from './card.js';
-import { openImage } from './card.js';
-import { likeOnCard } from './card.js';
-import { deleteCard } from './card.js';
-import { openPopup } from './modal.js';
-import { closePopup } from './modal.js';
-import { clickOverlayClose } from './modal.js';
-import { createNewCard } from './card.js';
-
+import { createCard, likeOnCard, deleteCard,} from './card.js';
+import { openPopup, closePopup, clickOverlayClose } from './modal.js';
 //DOM узлы
 const placesList = document.querySelector('.places__list');
 //Popups-элементы, переменные
@@ -35,24 +28,53 @@ popups.forEach((popup) => {
 });
 
 // Открытие редактирования профиля
-popupEditOpenButton.addEventListener('click', () => {openPopup(popupEdit)});
+popupEditOpenButton.addEventListener('click',
+() => {openPopup(popupEdit),
+  //Получаем значения актуальной ин-ции в поля ввода
+nameInput.value = profileName.textContent;
+descriptionInput.value = descriptionUser.textContent;});
 // Открытие модалки добавления новой карточки
 popupAddOpenButton.addEventListener('click', () => {openPopup(popupNewCard)});
 
+// Функция фуллскрин
+export function openImage(src, alt) {
+  const popupImage = document.querySelector('.popup_type_image');
+  const popupFullScrinIgm = popupImage.querySelector('.popup__image');
+  const popupCaption = popupImage.querySelector('.popup__caption');
+  // popupImage.style.backgroundColor = 'rgba(0, 0, 0, .9)';
+
+  popupFullScrinIgm.src = src;
+  popupFullScrinIgm.alt = alt;
+  popupCaption.textContent = popupFullScrinIgm.alt;
+  
+  openPopup(popupImage);
+};
+
+// 2-Функция создания новой карточки
+export function createNewCard(evt, deleteCard, likeOnCard, openImage) {
+  const namePlaceInput = formElementNewCard.querySelector('.popup__input_type_card-name');
+  const linkPlaceInput = formElementNewCard.querySelector('.popup__input_type_url');
+  evt.preventDefault();
+  const newCardInfo = {
+    name: namePlaceInput.value,
+    link: linkPlaceInput.value
+  };
+  evt.target.reset();
+
+  placesList.prepend(createCard(newCardInfo, deleteCard, likeOnCard, openImage));
+  closePopup(formElementNewCard);
+};
+
 // Редактируем ин-цию о себе
-// 1-Находим форму и поля ввода в DOM
-const formElement = document.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__input_type_name');
-const descriptionInput = formElement.querySelector('.popup__input_type_description');
-const profileName = document.querySelector('.profile__title');
-const descriptionUser = document.querySelector('.profile__description');
+// Находим форму и поля ввода в DOM
+const formElementEdit = document.forms.edit_profile;
+const nameInput = formElementEdit.querySelector('.popup__input_type_name'); //edit
+const descriptionInput = formElementEdit.querySelector('.popup__input_type_description');//edit
+const profileName = document.querySelector('.profile__title');//current
+const descriptionUser = document.querySelector('.profile__description');//current
 
-// 2-Получаем значения актуальной ин-ции в поля ввода
-nameInput.value = profileName.textContent;
-descriptionInput.value = descriptionUser.textContent;
-
-// 3-Обработчик «отправки» формы
-function handleFormSubmit(evt) {
+// Обработчик «отправки» формы
+function handleProfileFormSubmit(evt) {
     evt.preventDefault();
 
     profileName.textContent = nameInput.value;
@@ -61,7 +83,7 @@ function handleFormSubmit(evt) {
 };
 
 // 4-Прикрепляем обработчик к форме редактирования профиля
-formElement.addEventListener('submit', handleFormSubmit);
+formElementEdit.addEventListener('submit', handleProfileFormSubmit);
 
 // Добовление новой карточки
 //Находим форму в DOM

@@ -8,7 +8,6 @@ export function openPopup(popup) {
 export function closePopup(popup) {
   popup.classList.remove('popup_is-opened');
   window.removeEventListener('keydown', pressEscClose);
-  popup.removeEventListener('mousedown', clickOverlayClose);
 };
 
 // функция закрытия по кнопке esc

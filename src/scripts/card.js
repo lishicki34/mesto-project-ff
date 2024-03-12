@@ -1,5 +1,3 @@
-
-
 // Функция лайк
 export function likeOnCard (likeButton){
   likeButton.classList.toggle('card__like-button_is-active');

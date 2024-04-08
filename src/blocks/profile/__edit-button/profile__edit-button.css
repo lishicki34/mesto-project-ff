@@ -27,3 +27,21 @@
     background-size: 8px 8px;
   }
 }
+
+.profile__image-button {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 7%;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+}
+
+.profile__image:hover .profile__image-button {
+  display: block;
+}

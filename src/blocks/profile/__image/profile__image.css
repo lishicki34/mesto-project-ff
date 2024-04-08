@@ -9,6 +9,19 @@
   margin: 0 29px 0 0;
 }
 
+.profile__image:hover::before {
+  content: '';
+  position: absolute;
+  top: 18%;
+  left: -1px;
+  width: 14%;
+  height: 63%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: rgba(0,0,0, 0.8);
+}
+
 @media screen and (max-width: 740px) {
   .profile__image {
     margin: 0 10px 0 0;

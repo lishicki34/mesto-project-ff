@@ -16,6 +16,7 @@ module.exports = {
     port: 8080,
     open: true
   },
+
   module: {
     rules: [ // rules — это массив правил
       // добавим в него объект правил для бабеля
@@ -49,5 +50,6 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin()//подключение плагина для объединения файлов
-  ]
+  ],
+  devtool: 'source-map'
 }
